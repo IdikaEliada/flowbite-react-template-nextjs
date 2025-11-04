@@ -32,7 +32,7 @@ export default function RootLayout({
         <ThemeModeScript />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased box-border bg-white px-4 md:px-6 dark:bg-gray-900`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased box-border bg-gray-100 px-4 md:px-6 dark:bg-gray-900`}
       >
         <ThemeInit />
         <BackgroundPattern /> 

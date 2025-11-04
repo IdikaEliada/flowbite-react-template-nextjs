@@ -46,10 +46,10 @@ export default function Home() {
             className=""
             alt="Pattern Light"
             src="/logo.jpeg"
-            width={32}
-            height={32}
+            width={28}
+            height={28}
           />
-          <span className="relative w-fit  font-semibold whitespace-nowrap text-[#111928] dark:text-white">
+          <span className="relative w-fit text-xl font-semibold whitespace-nowrap text-[#111928] dark:text-white">
             Bookmate
           </span>
         </div>
@@ -64,21 +64,21 @@ export default function Home() {
             transition={{ type: "spring", stiffness: 120, damping: 14 }}
             className="relative text-center text-5xl leading-[95%] tracking-tight font-semibold text-gray-900 dark:text-gray-200"
           >
-            Welcome to <span className="font-black tracking-wider dark:bg-gradient-to-br from-primary-100 via-primary-200 to-primary-300 bg-gradient-to-br from-primary-400 via-primary-500 to-primary-600 text-transparent [background-clip:text] [-webkit-background-clip:text]" >Bookmate </span>
+            Welcome to <span className="hidden dark:inline font-black tracking-wider bg-gradient-to-br from-primary-400 via-primary-500 to-primary-200  text-transparent [background-clip:text] [-webkit-background-clip:text]" >Bookmate </span><span className='dark:hidden font-black tracking-wider bg-gradient-to-br from-primary-500 via-primary-800 to-primary-700 text-transparent [background-clip:text] [-webkit-background-clip:text]'>Bookmate</span>
           </motion.h1>
 
           <motion.span
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.06, duration: 0.51 }}
-            className="inline-flex flex-wrap items-center justify-center text-center"
+            className=" flex-wrap items-center justify-center text-center"
           >
             <span className="inline text-lg text-gray-600 dark:text-gray-400 mt-8">
               Your one-shop for all academic  
             </span>
             <span className="relative inline-flex items-center gap-2 text-lg text-gray-600 dark:text-gray-400">              
               <span className="relative w-fit  font-semibold whitespace-nowrap text-[#111928] dark:text-white">
-                books
+                &nbsp; books
               </span>
               and resources
             </span>
