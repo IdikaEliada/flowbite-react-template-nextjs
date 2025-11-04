@@ -35,8 +35,10 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased box-border bg-white px-4 md:px-6 dark:bg-gray-900`}
       >
         <ThemeInit />
-        <BackgroundPattern />
-        {children}
+        <BackgroundPattern /> 
+        <main className="h-screen flex-col items-center justify-center py-24 relative z-10">
+          {children}
+        </main>
       </body>
     </html>
   );

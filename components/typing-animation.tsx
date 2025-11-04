@@ -21,30 +21,54 @@ export function TypingAnimation({
   const controls = useAnimationControls()
 
   useEffect(() => {
+    let isMounted = true;
+    
     const animateText = async () => {
-      const currentMessage = messages[currentMessageIndex]
+      if (!isMounted) return;
       
-      // Reset text and fade in
-      setDisplayedText("")
-      await controls.start({ opacity: 1 })
+      const currentMessage = messages[currentMessageIndex];
       
-      // Type out the text
-      for (let i = 0; i <= currentMessage.length; i++) {
-        setDisplayedText(currentMessage.slice(0, i))
-        await new Promise(resolve => setTimeout(resolve, typingSpeed))
+      try {
+        // Reset text and fade in
+        setDisplayedText("");
+        if (!isMounted) return;
+        await controls.start({ opacity: 1 });
+        
+        // Type out the text
+        for (let i = 0; i <= currentMessage.length; i++) {
+          if (!isMounted) return;
+          setDisplayedText(currentMessage.slice(0, i));
+          await new Promise(resolve => setTimeout(resolve, typingSpeed));
+        }
+        
+        // Wait before fading out
+        if (!isMounted) return;
+        await new Promise(resolve => setTimeout(resolve, delayBetweenMessages));
+        
+        // Fade out
+        if (!isMounted) return;
+        await controls.start({ opacity: 0 });
+        
+        // Move to next message
+        if (isMounted) {
+          setCurrentMessageIndex((prev) => (prev + 1) % messages.length);
+        }
+      } catch (error) {
+        console.error("Animation error:", error);
       }
-      
-      // Wait before fading out
-      await new Promise(resolve => setTimeout(resolve, delayBetweenMessages))
-      
-      // Fade out
-      await controls.start({ opacity: 0 })
-      
-      // Move to next message
-      setCurrentMessageIndex((prev) => (prev + 1) % messages.length)
-    }
+    };
 
-    animateText()
+    // Start animation after a short delay to ensure mounting is complete
+    const timer = setTimeout(() => {
+      if (isMounted) {
+        animateText();
+      }
+    }, 100);
+
+    return () => {
+      isMounted = false;
+      clearTimeout(timer);
+    };
   }, [currentMessageIndex, messages, typingSpeed, delayBetweenMessages, controls])
 
   return (

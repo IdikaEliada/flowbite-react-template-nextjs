@@ -25,7 +25,7 @@ export default function LoginPage() {
             src="/logo.jpeg"
             alt="logo"
           />
-          Flowbite
+          Bookmate
         </Link>
 
         <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
@@ -100,7 +100,7 @@ export default function LoginPage() {
 
               <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                 Don’t have an account yet?{' '}
-                <Link href="#" className="font-medium text-primary-600 hover:underline dark:text-primary-500">
+                <Link href="/create-account" className="font-medium text-primary-600 hover:underline dark:text-primary-500">
                   Sign up
                 </Link>
               </p>

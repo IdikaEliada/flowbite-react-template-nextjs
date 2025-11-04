@@ -5,7 +5,7 @@ import { Button } from "flowbite-react";
 import { useState } from "react"
 import { HiOutlineArrowRight } from "react-icons/hi";
 import { DarkThemeToggle } from "flowbite-react";
-import { Header } from "@/components/ui/navbar";
+import Image from "next/image";
 import { TypingAnimation } from "@/components/typing-animation";
 import { BackgroundPattern } from "@/components/background-pattern";
 
@@ -14,7 +14,19 @@ export default function Home() {
   return (
     <main className="flex max-h-screen flex-col items-center justify-center py-24">
       <BackgroundPattern />
-      <div className="absolute top-4 right-4">
+      <div className="absolute top-4 right-4 left-4 flex items-center justify-between ">
+        <div className="flex items-center gap-2">
+          <Image
+            className=""
+            alt="Pattern Light"
+            src="/logo.jpeg"
+            width={32}
+            height={32}
+          />
+          <span className="relative w-fit  font-semibold whitespace-nowrap text-[#111928] dark:text-white">
+            Bookmate
+          </span>
+        </div>
         <DarkThemeToggle className="cursor-pointer"/>
       </div>
 
@@ -24,7 +36,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 20, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ type: "spring", stiffness: 120, damping: 14 }}
-            className="relative text-center text-4xl leading-[125%] font-bold text-gray-900 dark:text-gray-200"
+            className="relative text-center text-4xl leading-[25%] font-bold text-gray-900 dark:text-gray-200"
           >
             Welcome to <span className="font-bold" >Bookmate </span>
           </motion.h1>
