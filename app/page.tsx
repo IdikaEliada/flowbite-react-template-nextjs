@@ -36,7 +36,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 20, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ type: "spring", stiffness: 120, damping: 14 }}
-            className="relative text-center text-4xl leading-[25%] font-bold text-gray-900 dark:text-gray-200"
+            className="relative text-center text-4xl leading-[95%] font-bold text-gray-900 dark:text-gray-200"
           >
             Welcome to <span className="font-bold" >Bookmate </span>
           </motion.h1>
