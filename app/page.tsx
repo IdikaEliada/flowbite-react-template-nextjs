@@ -36,18 +36,18 @@ export default function Home() {
             initial={{ opacity: 0, y: 20, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ type: "spring", stiffness: 120, damping: 14 }}
-            className="relative text-center text-4xl leading-[95%] font-bold text-gray-900 dark:text-gray-200"
+            className="relative text-center text-5xl leading-[95%] tracking-tight font-bold text-gray-900 dark:text-gray-200"
           >
-            Welcome to <span className="font-bold" >Bookmate </span>
+            Welcome to <span className="font-black tracking-wider text-primary-800 dark:text-primary-500" >Bookmate </span>
           </motion.h1>
 
           <motion.span
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.06, duration: 0.51 }}
-            className="inline-flex flex-wrap items-center justify-center gap-2.5 text-center"
+            className="inline-flex flex-wrap items-center justify-center text-center"
           >
-            <span className="inline text-lg text-gray-600 dark:text-gray-400">
+            <span className="inline text-lg text-gray-600 dark:text-gray-400 mt-8">
               Your one-shop for all academic  
             </span>
             <span className="relative inline-flex items-center gap-2 text-lg text-gray-600 dark:text-gray-400">              
@@ -59,7 +59,7 @@ export default function Home() {
           </motion.span>
         </div>
         <div className="flex gap-4">
-          <Button size="lg" color="dark">
+          <Button size="lg" className="bg-primary-800 dark:bg-primary-600">
             Get Started
           </Button>
           <Button size="lg" color="alternative">
@@ -72,7 +72,7 @@ export default function Home() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5, duration: 0.8 }}
-          className="text-center mx-auto"
+          className="text-center mx-4"
         >
           <TypingAnimation
             messages={[
