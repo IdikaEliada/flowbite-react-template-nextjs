@@ -5,6 +5,7 @@ import { ThemeInit } from "../.flowbite-react/init";
 import "./globals.css";
 import { BackgroundPattern } from "../components/background-pattern";
 
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
