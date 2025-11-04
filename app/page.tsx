@@ -11,6 +11,31 @@ import { TypingAnimation } from "@/components/typing-animation";
 import { BackgroundPattern } from "@/components/background-pattern";
 
 export default function Home() {
+  
+  // useEffect(() => {
+  //   const checkAuth = async () => {
+  //     try {
+  //       const isAuthenticated = apiService.isAuthenticated()
+  //       if (isAuthenticated) {
+  //         router.push("/dashboard")
+  //       }
+  //     } catch (error) {
+  //       console.error("Auth check error:", error)
+  //     } finally {
+  //       setLoading(false)
+  //     }
+  //   }
+
+  //   checkAuth()
+  // }, [router])
+
+  // if (loading) {
+  //   return (
+  //     <div className="min-h-screen flex items-center justify-center ">
+  //       <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary"></div>
+  //     </div>
+  //   )
+  // }
 
   return (
     <main className="flex max-h-screen flex-col items-center justify-center py-24">
