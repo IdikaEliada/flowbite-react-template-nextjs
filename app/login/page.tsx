@@ -3,6 +3,11 @@
 
 import { useState } from "react"
 import Link from "next/link"
+import Image from "next/image"
+import { useRouter } from "next/navigation"
+import { DarkThemeToggle, FloatingLabel } from "flowbite-react"
+import { BackgroundPattern } from "@/components/background-pattern"
+import { HiArrowCircleLeft } from "react-icons/hi"
 
 export default function LoginPage() {
   const [email, setEmail] = useState("")
@@ -17,13 +22,25 @@ export default function LoginPage() {
   }
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-gray-50 dark:bg-gray-900 px-4 py-8">
-      <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+    <main className="flex max-h-screen flex-col items-center justify-center pt-5 pb-38">
+      <div className="absolute top-4 right-4 left-4 flex items-center justify-between ">
+        <Link href="/" className="flex items-center gap-2" >
+          <HiArrowCircleLeft className="dark:text-gray-300 text-xl cursor-pointer text-[#111928]"/>
+          <span className="relative w-fit text-xs font-semibold whitespace-nowrap text-[#111928] dark:text-white cursor-pointer">
+            Back
+          </span>
+        </Link>
+        <DarkThemeToggle className="cursor-pointer"/>
+      </div>
+
+      <div className="flex flex-col items-center justify-center w-full min-w-sm max-w-md px-4 py-8  sm:max-w-sm xl:p-0 ">
         <Link href="#" className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
-          <img
+          <Image
             className="w-8 h-8 mr-2"
             src="/logo.jpeg"
             alt="logo"
+            width={32}
+            height={32}
           />
           Bookmate
         </Link>

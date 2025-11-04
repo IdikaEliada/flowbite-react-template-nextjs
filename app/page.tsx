@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { AnimatePresence, motion } from "framer-motion"
 import { Button } from "flowbite-react";
 import { useState } from "react"
-import { HiOutlineArrowRight } from "react-icons/hi";
+import { HiOutlineArrowRight, HiArrowSmLeft } from "react-icons/hi";
 import { DarkThemeToggle } from "flowbite-react";
 import Image from "next/image";
 import { TypingAnimation } from "@/components/typing-animation";
@@ -55,6 +55,7 @@ export default function Home() {
         </div>
         <DarkThemeToggle className="cursor-pointer"/>
       </div>
+      
 
       <div className="relative flex w-full max-w-5xl flex-col items-center justify-center gap-12">
         <div className="relative flex flex-col items-center gap-6">
@@ -86,12 +87,12 @@ export default function Home() {
         </div>
         <div className="flex gap-4">
           <Link href="/create-account">
-            <Button size="lg" color="alternative" className="border-gray-300/75 border-2">
+            <Button size="lg" color="alternative" className="border-gray-300/75 border-2 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800">
               Get Started
             </Button>
           </Link>
           <Link href="/login">
-            <Button size="lg" className="bg-primary-800 dark:bg-primary-600">
+            <Button size="lg" className="bg-primary-800 dark:bg-primary-600 cursor-pointer hover:bg-primary-900 dark:hover:bg-primary-500 flex items-center">
               Login
               <HiOutlineArrowRight className="ml-2 h-5 w-5" />
             </Button>   
