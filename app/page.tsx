@@ -36,7 +36,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 20, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ type: "spring", stiffness: 120, damping: 14 }}
-            className="relative text-center text-5xl leading-[95%] tracking-tight font-bold text-gray-900 dark:text-gray-200"
+            className="relative text-center text-5xl leading-[95%] tracking-tight font-semibold text-gray-900 dark:text-gray-200"
           >
             Welcome to <span className="font-black tracking-wider text-primary-800 dark:text-primary-500" >Bookmate </span>
           </motion.h1>
@@ -59,13 +59,14 @@ export default function Home() {
           </motion.span>
         </div>
         <div className="flex gap-4">
-          <Button size="lg" className="bg-primary-800 dark:bg-primary-600">
+          <Button size="lg" color="alternative" className="border-gray-300/75 border-2">
             Get Started
           </Button>
-          <Button size="lg" color="alternative">
+          <Button size="lg" className="bg-primary-800 dark:bg-primary-600">
             Login
             <HiOutlineArrowRight className="ml-2 h-5 w-5" />
-          </Button>
+          </Button>   
+
         </div>
 
         <motion.div
