@@ -39,7 +39,7 @@ export default function Home() {
             transition={{ type: "spring", stiffness: 120, damping: 14 }}
             className="relative text-center text-5xl leading-[95%] tracking-tight font-semibold text-gray-900 dark:text-gray-200"
           >
-            Welcome to <span className="font-black tracking-wider bg-linear-65 from-primary-400 to-primary-600 text-transparent [background-clip:text] [-webkit-background-clip:text]" >Bookmate </span>
+            Welcome to <span className="font-black tracking-wider dark:bg-linear-65 from-primary-100 to-primary-400 bg-linear-65 from-primary-600 to-primary-900 text-transparent [background-clip:text] [-webkit-background-clip:text]" >Bookmate </span>
           </motion.h1>
 
           <motion.span
