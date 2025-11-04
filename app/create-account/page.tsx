@@ -53,7 +53,7 @@ export default function CreateAccount() {
   }
 
   return (
-    <main className="flex max-h-screen flex-col items-center justify-center pt-5 pb-38">
+    <main className="flex h-screen flex-col items-center justify-center pt-5 pb-38">
           <div className="absolute top-4 right-4 left-4 flex items-center justify-between ">
             <Link href="/" className="flex items-center gap-2" >
               <HiArrowCircleLeft className="dark:text-gray-300 text-xl cursor-pointer text-[#111928]"/>
