@@ -45,9 +45,9 @@ export default function LoginPage() {
           Bookmate
         </Link>
 
-        <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-sm xl:p-0 dark:bg-gray-800 dark:border-gray-700">
-          <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-            <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+        <div className="backdrop-blur-md bg-white/75 rounded-xl shadow dark:border-2 s:mx-w-sm dark:bg-gray-800 dark:border-gray-700/15 px-4 py-6">
+          <div className="p-4 space-y-2 md:space-y-4 sm:p-8">
+            <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white pb-4">
               Sign in to your account
             </h1>
 
