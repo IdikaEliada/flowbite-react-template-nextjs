@@ -11,6 +11,7 @@
     "format:check": "prettier . --check"
   },
   "dependencies": {
+    "firebase": "^12.5.0",
     "flowbite-react": "^0.12.4",
     "motion": "^12.23.24",
     "next": "^16.0.1",
