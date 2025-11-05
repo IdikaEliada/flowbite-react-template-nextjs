@@ -2,12 +2,56 @@
 
 import Link from 'next/link'
 import { AnimatePresence, motion } from "framer-motion"
-import { Button } from "flowbite-react";
+import { Card, Button } from "flowbite-react";
 import { useState } from "react"
-import { HiOutlineArrowRight, HiArrowSmLeft } from "react-icons/hi";
+import { HiOutlineArrowRight, HiArrowSmLeft, HiChartPie, HiBookOpen, HiUserGroup, HiClock } from "react-icons/hi";
 import { DarkThemeToggle } from "flowbite-react";
 import Image from "next/image";
 import { TypingAnimation } from "@/components/typing-animation";
+
+interface DashboardCard {
+  id: number;
+  title: string;
+  value: string;
+  description: string;
+  icon: React.ElementType;
+  color: string;
+}
+
+const dashboardCards: DashboardCard[] = [
+  {
+    id: 1,
+    title: "Books Available",
+    value: "1,234",
+    description: "Total books in our library",
+    icon: HiBookOpen,
+    color: "text-blue-600 dark:text-blue-500"
+  },
+  {
+    id: 2,
+    title: "Active Readers",
+    value: "892",
+    description: "Currently reading users",
+    icon: HiUserGroup,
+    color: "text-green-600 dark:text-green-500"
+  },
+  {
+    id: 3,
+    title: "Reading Time",
+    value: "4.2h",
+    description: "Average daily reading time",
+    icon: HiClock,
+    color: "text-purple-600 dark:text-purple-500"
+  },
+  {
+    id: 4,
+    title: "Categories",
+    value: "25+",
+    description: "Different book categories",
+    icon: HiChartPie,
+    color: "text-orange-600 dark:text-orange-500"
+  }
+];
 import { BackgroundPattern } from "@/components/background-pattern";
 
 export default function UserDashboard() {
@@ -38,7 +82,7 @@ export default function UserDashboard() {
   // }
 
   return (
-    <main className="flex max-h-screen flex-col items-center justify-center py-24">
+    <main className="py-24">
       <BackgroundPattern />
       <div className="absolute top-4 right-4 left-4 flex items-center justify-between ">
         <div className="flex items-center gap-2">
@@ -85,39 +129,43 @@ export default function UserDashboard() {
             </span>
           </motion.span>
         </div>
-        <div className="flex gap-4">
-          <Link href="/create-account">
-            <Button size="lg" color="alternative" className="border-gray-300/75 border-2 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800">
-              Get Started
-            </Button>
-          </Link>
-          <Link href="/login">
-            <Button size="lg" className="bg-primary-800 dark:bg-primary-600 cursor-pointer hover:bg-primary-900 dark:hover:bg-primary-500 flex items-center">
-              Login
-              <HiOutlineArrowRight className="ml-2 h-5 w-5" />
-            </Button>   
-          </Link>
+        
+        <div className="relative flex w-full flex-col items-start gap-6 self-stretch">
+          <div className="grid w-full grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+            <AnimatePresence>
+              {dashboardCards.map((card, index) => (
+                <motion.div
+                  key={card.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.3, delay: index * 0.1 }}
+                  className="group cursor-pointer"
+                >
+                  <Card className="h-full hover:shadow-lg transition-all duration-300 dark:border-gray-700">
+                    <div className="flex items-center justify-between p-2">
+                      <div>
+                        <p className="text-lg font-semibold text-gray-900 dark:text-white">
+                          {card.value}
+                        </p>
+                        <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400">
+                          {card.title}
+                        </h3>
+                        <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                          {card.description}
+                        </p>
+                      </div>
+                      <div className={`p-3 rounded-lg bg-gray-100 dark:bg-gray-800 ${card.color}`}>
+                        <card.icon className="w-6 h-6" />
+                      </div>
+                    </div>
+                  </Card>
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </div>
+
         </div>
-
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5, duration: 0.8 }}
-          className="text-center mx-4"
-        >
-          <TypingAnimation
-            messages={[
-              "order your books in minutes!",
-              "Browse by department, semester or course.",
-              "Fast delivery and secure payment!",
-              "academic books, study materials and resources",
-            ]}
-            className="text-lg font-semibold text-[#111928] dark:text-white"
-            typingSpeed={40}
-            delayBetweenMessages={2000}
-          />
-        </motion.div>
-
       </div>
     </main>
   );
