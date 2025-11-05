@@ -5,20 +5,34 @@ import { useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
-import { DarkThemeToggle, FloatingLabel } from "flowbite-react"
+import { DarkThemeToggle } from "flowbite-react"
 import { BackgroundPattern } from "@/components/background-pattern"
 import { HiArrowCircleLeft } from "react-icons/hi"
+import { signInWithEmailAndPassword } from "firebase/auth"
+import { auth } from "@/lib/firebase"
 
 export default function LoginPage() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [remember, setRemember] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState("")
+  const router = useRouter()
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    // TODO: replace with real auth call
-    console.log({ email, password, remember })
-    alert("Submitted (check console)")
+    setError("")
+    setLoading(true)
+    
+    try {
+      await signInWithEmailAndPassword(auth, email, password)
+      // Redirect to dashboard on success
+      router.push("/dashboard")
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to sign in")
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -108,11 +122,17 @@ export default function LoginPage() {
                 </Link>
               </div>
 
+              {error && (
+                <div className="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-red-800/30 dark:text-red-400" role="alert">
+                  {error}
+                </div>
+              )}
               <button
                 type="submit"
-                className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                disabled={loading}
+                className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                Sign in
+                {loading ? "Signing in..." : "Sign in"}
               </button>
 
               <p className="text-sm font-light text-gray-500 dark:text-gray-400">

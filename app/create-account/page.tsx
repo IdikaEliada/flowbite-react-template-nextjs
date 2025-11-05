@@ -5,20 +5,20 @@ import { useRouter } from 'next/navigation'
 import { DarkThemeToggle } from 'flowbite-react'
 import { HiArrowCircleLeft } from 'react-icons/hi'
 import Link from 'next/link'
+import { createUserWithEmailAndPassword } from 'firebase/auth'
+import { auth } from '@/lib/firebase'
 
 
 export default function CreateAccount() {
   const router = useRouter()
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
   const [formData, setFormData] = useState({
     email: '',
     password: '',
     confirmPassword: '',
     username: ''
   })
+  const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
-
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -28,27 +28,18 @@ export default function CreateAccount() {
       return
     }
 
-    try {
-      // Add your signup API call here
-      const response = await fetch('/api/auth/signup', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: formData.email,
-          password: formData.password,
-          username: formData.username
-        }),
-      })
+    setError('')
+    setLoading(true)
 
-      if (response.ok) {
-        router.push('/login')
-      } else {
-        setError('Failed to create account')
-      }
+    try {
+      // Create the user in Firebase
+      await createUserWithEmailAndPassword(auth, formData.email, formData.password)
+      // On success, redirect to dashboard
+      router.push('/dashboard')
     } catch (err) {
-      setError('An error occurred during sign up')
+      setError(err instanceof Error ? err.message : 'Failed to create account')
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -129,11 +120,17 @@ export default function CreateAccount() {
                   
     
                   <div>
+                    {error && (
+                      <div className="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-red-800/30 dark:text-red-400" role="alert">
+                        {error}
+                      </div>
+                    )}
                     <button
                       type="submit"
-                      className="group relative flex w-full justify-center rounded-md bg-primary-600 px-3 py-2 text-sm font-semibold text-white hover:bg-primary-500"
+                      disabled={loading}
+                      className="group relative flex w-full justify-center rounded-md bg-primary-600 px-3 py-2 text-sm font-semibold text-white hover:bg-primary-500 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                      Sign up
+                      {loading ? "Creating account..." : "Sign up"}
                     </button>
                   </div>
     
