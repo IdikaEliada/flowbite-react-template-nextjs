@@ -23,6 +23,11 @@ export default function CreateAccount() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     
+    if (!formData.email || !formData.password) {
+      setError('Email and password are required')
+      return
+    }
+    
     if (formData.password !== formData.confirmPassword) {
       setError('Passwords do not match')
       return
@@ -32,11 +37,12 @@ export default function CreateAccount() {
     setLoading(true)
 
     try {
-      // Create the user in Firebase
+      console.log('Creating account with:', { email: formData.email }) // Debug log
       await createUserWithEmailAndPassword(auth, formData.email, formData.password)
       // On success, redirect to dashboard
       router.push('/dashboard')
     } catch (err) {
+      console.error('Signup error:', err) // Debug log
       setError(err instanceof Error ? err.message : 'Failed to create account')
     } finally {
       setLoading(false)
@@ -81,8 +87,8 @@ export default function CreateAccount() {
                       className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       placeholder="name@company.com"
                       required
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
+                      value={formData.email}
+                      onChange={(e) => setFormData({...formData, email: e.target.value})}
                     />
                   </div>
     
@@ -97,8 +103,8 @@ export default function CreateAccount() {
                       placeholder="••••••••"
                       className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       required
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
+                      value={formData.password}
+                      onChange={(e) => setFormData({...formData, password: e.target.value})}
                     />
                   </div>
                   <div>
