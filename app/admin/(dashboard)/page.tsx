@@ -14,4 +14,20 @@ export default function DashboardPage() {
           <h3 className="text-lg font-semibold">Revenue</h3>
           <p className="text-3xl font-bold text-green-600">$45,678</p>
         </div>
-        <div className="bg-white dark:bg-gray
+        <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
+          <h3 className="text-lg font-semibold">Active Sessions</h3>
+          <p className="text-3xl font-bold text-purple-600">89</p>
+        </div>
+      </div>
+
+      <div className="mt-8">
+        <h2 className="text-2xl font-semibold mb-4">Recent Activity</h2>
+        <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
+          <p className="text-gray-600 dark:text-gray-300">
+            Welcome to your dashboard! Start building something amazing.
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
