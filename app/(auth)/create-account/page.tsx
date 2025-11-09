@@ -8,8 +8,8 @@ import { HiArrowCircleLeft } from "react-icons/hi";
 import { auth } from "@/lib/firebase";
 import { db } from "@/lib/firebase";
 import { collection, addDoc } from "firebase/firestore";
-import { Faculty, faculties } from "@/lib/data/faculties";
-import { departments, Departments } from "@/lib/data/departments";
+import { faculties } from "@/lib/data/faculties";
+import { Departments } from "@/lib/data/departments";
 import {
   Select,
   SelectContent,
@@ -29,6 +29,13 @@ export interface UserProfile {
   level: string;
 }
 
+interface DepartmentOption {
+  name: string;
+  faculty: string;
+}
+
+let departments: DepartmentOption[] = [];
+
 export default function CreateProfile() {
   const [formData, setFormData] = useState({
     name: "",
@@ -43,21 +50,15 @@ export default function CreateProfile() {
   const [error, setError] = useState("");
   const router = useRouter();
 
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
-  ) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
+  const handleInputChange = (name: string, value: string) => {
+    setFormData((prev) => ({
+      ...prev,
       [name]: value,
     }));
 
     if (name === "faculty") {
-      const deptOptions = toggleDepartments(value);
-      setFormData((prevData) => ({
-        ...prevData,
-        department: deptOptions[0] || "",
-      }));
+      const deptNames = toggleDepartments(value);
+      departments = deptNames.map((name) => ({ name, faculty: value }));
     }
   };
 
@@ -112,7 +113,9 @@ export default function CreateProfile() {
                   placeholder="Your full name"
                   required
                   value={formData.name}
-                  onChange={handleInputChange}
+                  onChange={(e) =>
+                    handleInputChange(e.target.name, e.target.value)
+                  }
                 />
               </div>
               <div>
@@ -130,7 +133,9 @@ export default function CreateProfile() {
                   placeholder="Email address"
                   required
                   value={formData.email}
-                  onChange={handleInputChange}
+                  onChange={(e) =>
+                    handleInputChange(e.target.name, e.target.value)
+                  }
                   readOnly={!!auth.currentUser?.email}
                 />
               </div>
@@ -149,7 +154,9 @@ export default function CreateProfile() {
                   placeholder="Username"
                   required
                   value={formData.userName}
-                  onChange={handleInputChange}
+                  onChange={(e) =>
+                    handleInputChange(e.target.name, e.target.value)
+                  }
                 />
               </div>
               <div>
@@ -167,7 +174,9 @@ export default function CreateProfile() {
                   placeholder="202•••••0342"
                   required
                   value={formData.registrationNumber}
-                  onChange={handleInputChange}
+                  onChange={(e) =>
+                    handleInputChange(e.target.name, e.target.value)
+                  }
                 />
               </div>
               <div>
@@ -179,16 +188,14 @@ export default function CreateProfile() {
                 </label>
                 <Select
                   name="faculty"
-                  id="faculty"
-                  className="focus:ring-primary-600 focus:border-primary-600 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
                   required
                   value={formData.faculty}
-                  onChange={handleInputChange}
+                  onValueChange={(val) => handleInputChange("faculty", val)}
                 >
                   <SelectTrigger>
                     <SelectValue placeholder="Select faculty" />
                   </SelectTrigger>
-                  <SelectContent className="">
+                  <SelectContent className="bg-white dark:bg-gray-700">
                     {faculties.map((faculty) => (
                       <SelectItem key={faculty} value={faculty}>
                         {faculty}
@@ -206,23 +213,20 @@ export default function CreateProfile() {
                 </label>
                 <Select
                   name="department"
-                  className="focus:ring-primary-600 focus:border-primary-600 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
                   required
                   value={formData.department}
-                  onChange={handleInputChange}
+                  onValueChange={(val) => handleInputChange("department", val)}
                 >
-                  <option value="">Select Department</option>
-                  {departments
-                    .filter((dept) =>
-                      formData.faculty
-                        ? dept.faculty === formData.faculty
-                        : true,
-                    )
-                    .map((dept: Department) => (
-                      <option key={dept.name} value={dept.name}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select department" />
+                  </SelectTrigger>
+                  <SelectContent className="bg-white dark:bg-gray-700">
+                    {departments.map((dept) => (
+                      <SelectItem key={dept.name} value={dept.name}>
                         {dept.name}
-                      </option>
+                      </SelectItem>
                     ))}
+                  </SelectContent>
                 </Select>
               </div>
 
@@ -239,7 +243,9 @@ export default function CreateProfile() {
                   className="focus:ring-primary-600 focus:border-primary-600 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
                   required
                   value={formData.level}
-                  onChange={handleInputChange}
+                  onChange={(e) =>
+                    handleInputChange(e.target.name, e.target.value)
+                  }
                 >
                   <option value="">Select Level</option>
                   <option value="100">100</option>
