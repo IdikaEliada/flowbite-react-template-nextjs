@@ -5,7 +5,6 @@ import { ThemeInit } from "../.flowbite-react/init";
 import "./globals.css";
 import { BackgroundPattern } from "../components/background-pattern";
 
-
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -32,11 +31,11 @@ export default function RootLayout({
         <ThemeModeScript />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased box-border bg-gray-100 px-4 md:px-6 dark:bg-gray-900`}
+        className={`${geistSans.variable} ${geistMono.variable} box-border bg-gray-100 px-4 antialiased md:px-6 dark:bg-gray-900`}
       >
         <ThemeInit />
-        <BackgroundPattern /> 
-        <main className="h-screen flex-col items-center justify-center py-24 relative z-10">
+        <BackgroundPattern />
+        <main className="relative z-10 h-screen flex-col items-center justify-center py-24">
           {children}
         </main>
       </body>

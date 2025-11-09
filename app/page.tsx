@@ -1,9 +1,9 @@
-"use client"
+"use client";
 
-import Link from 'next/link'
-import { AnimatePresence, motion } from "framer-motion"
+import Link from "next/link";
+import { AnimatePresence, motion } from "framer-motion";
 import { Button } from "flowbite-react";
-import { useState } from "react"
+import { useState } from "react";
 import { HiOutlineArrowRight, HiArrowSmLeft } from "react-icons/hi";
 import { DarkThemeToggle } from "flowbite-react";
 import Image from "next/image";
@@ -11,7 +11,6 @@ import { TypingAnimation } from "@/components/typing-animation";
 import { BackgroundPattern } from "@/components/background-pattern";
 
 export default function Home() {
-  
   // useEffect(() => {
   //   const checkAuth = async () => {
   //     try {
@@ -38,9 +37,9 @@ export default function Home() {
   // }
 
   return (
-    <main className="flex max-h-screen flex-col items-center justify-center py-24">
+    <main className="flex min-h-screen flex-col items-center justify-center">
       <BackgroundPattern />
-      <div className="absolute top-4 right-4 left-4 flex items-center justify-between ">
+      <div className="absolute top-4 right-4 left-4 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <Image
             className=""
@@ -53,9 +52,8 @@ export default function Home() {
             Bookmate
           </span>
         </div>
-        <DarkThemeToggle className="cursor-pointer"/>
+        <DarkThemeToggle className="cursor-pointer" />
       </div>
-      
 
       <div className="relative flex w-full max-w-5xl flex-col items-center justify-center gap-12">
         <div className="relative flex flex-col items-center gap-6">
@@ -63,22 +61,28 @@ export default function Home() {
             initial={{ opacity: 0, y: 20, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ type: "spring", stiffness: 120, damping: 14 }}
-            className="relative text-center text-5xl leading-[95%] tracking-tight font-semibold text-gray-900 dark:text-gray-200"
+            className="relative text-center text-5xl leading-[95%] font-semibold tracking-tight text-gray-900 dark:text-gray-200"
           >
-            Welcome to <span className="hidden dark:inline font-black tracking-wider bg-gradient-to-br from-primary-400 via-primary-500 to-primary-200  text-transparent [background-clip:text] [-webkit-background-clip:text]" >Bookmate </span><span className='dark:hidden font-black tracking-wider bg-gradient-to-br from-primary-500 via-primary-800 to-primary-700 text-transparent [background-clip:text] [-webkit-background-clip:text]'>Bookmate</span>
+            Welcome to{" "}
+            <span className="from-primary-400 via-primary-500 to-primary-200 hidden bg-gradient-to-br [background-clip:text] font-black tracking-wider text-transparent [-webkit-background-clip:text] dark:inline">
+              Bookmate{" "}
+            </span>
+            <span className="from-primary-500 via-primary-800 to-primary-700 bg-gradient-to-br [background-clip:text] font-black tracking-wider text-transparent [-webkit-background-clip:text] dark:hidden">
+              Bookmate
+            </span>
           </motion.h1>
 
           <motion.span
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.06, duration: 0.51 }}
-            className=" flex-wrap items-center justify-center text-center"
+            className="flex-wrap items-center justify-center text-center"
           >
-            <span className="inline text-lg text-gray-600 dark:text-gray-400 mt-8">
-              Your one-shop for all academic  
+            <span className="mt-8 inline text-lg text-gray-600 dark:text-gray-400">
+              Your one-shop for all academic
             </span>
-            <span className="relative inline-flex items-center gap-2 text-lg text-gray-600 dark:text-gray-400">              
-              <span className="relative w-fit  font-semibold whitespace-nowrap text-[#111928] dark:text-white">
+            <span className="relative inline-flex items-center gap-2 text-lg text-gray-600 dark:text-gray-400">
+              <span className="relative w-fit font-semibold whitespace-nowrap text-[#111928] dark:text-white">
                 &nbsp; books
               </span>
               and resources
@@ -87,15 +91,22 @@ export default function Home() {
         </div>
         <div className="flex gap-4">
           <Link href="/create-account">
-            <Button size="lg" color="alternative" className="border-gray-300/75 border-2 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800">
+            <Button
+              size="lg"
+              color="alternative"
+              className="cursor-pointer border-2 border-gray-300/75 hover:bg-gray-100 dark:hover:bg-gray-800"
+            >
               Get Started
             </Button>
           </Link>
           <Link href="/login">
-            <Button size="lg" className="bg-primary-800 dark:bg-primary-600 cursor-pointer hover:bg-primary-900 dark:hover:bg-primary-500 flex items-center">
+            <Button
+              size="lg"
+              className="bg-primary-800 dark:bg-primary-600 hover:bg-primary-900 dark:hover:bg-primary-500 flex cursor-pointer items-center"
+            >
               Login
               <HiOutlineArrowRight className="ml-2 h-5 w-5" />
-            </Button>   
+            </Button>
           </Link>
         </div>
 
@@ -103,7 +114,7 @@ export default function Home() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5, duration: 0.8 }}
-          className="text-center mx-4"
+          className="mx-4 text-center"
         >
           <TypingAnimation
             messages={[
@@ -117,7 +128,6 @@ export default function Home() {
             delayBetweenMessages={2000}
           />
         </motion.div>
-
       </div>
     </main>
   );
