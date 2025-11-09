@@ -90,7 +90,7 @@ export default function Home() {
           </motion.span>
         </div>
         <div className="flex gap-4">
-          <Link href="/create-account">
+          <Link href="/signup">
             <Button
               size="lg"
               color="alternative"
