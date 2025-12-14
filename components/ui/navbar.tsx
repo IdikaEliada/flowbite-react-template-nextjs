@@ -8,12 +8,50 @@ import {
   HiInformationCircle,
   HiCog,
   HiCurrencyDollar,
-  HiPhone,
 } from "react-icons/hi";
-import { useState } from "react";
+import { LogOut } from "lucide-react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { signOut, onAuthStateChanged, User } from "firebase/auth";
+import { auth } from "@/lib/firebase";
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
+  const router = useRouter();
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  const getUserDisplayName = () => {
+    if (user?.displayName) return user.displayName;
+    if (user?.email) return user.email.split("@")[0];
+    return "User";
+  };
+
+  const getUserInitials = () => {
+    const name = getUserDisplayName();
+    return name
+      .split(" ")
+      .map((n: string) => n[0])
+      .join("")
+      .toUpperCase()
+      .slice(0, 2);
+  };
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      router.push("/login");
+    } catch (error) {
+      console.error("Error signing out:", error);
+    }
+  };
 
   return (
     <div>
@@ -26,7 +64,7 @@ export function Header() {
           height={32}
           className="h-8 w-8"
         />
-        <span className="text-xl font-semibold text-gray-900 dark:text-white">
+        <span className={`text-xl font-semibold text-gray-900 dark:text-white ${isOpen ? "hidden md:block" : "block"}`}>
           Bookmate
         </span>
       </div>
@@ -41,15 +79,29 @@ export function Header() {
 
       {/* Sidebar on the right */}
       <div
-        className={`fixed inset-y-0 right-0 z-40 w-64 transform transition-transform duration-300 ease-in-out ${
-          isOpen ? "translate-x-0" : "translate-x-full"
-        }`}
+        className={`fixed inset-y-0 right-0 z-40 w-64 transform transition-transform duration-300 ease-in-out ${isOpen ? "translate-x-0" : "translate-x-full"
+          }`}
       >
         <div className="h-full bg-white shadow-lg dark:bg-gray-800">
           <div className="flex items-center justify-start border-b border-gray-200 p-4 dark:border-gray-700">
-            <span className="text-xl font-semibold text-gray-900 dark:text-white">
-              Menu
-            </span>
+            <div className="flex justify-center items-center gap-2 space-x-3">
+              {user?.photoURL ? (
+                <Image
+                  src={user.photoURL}
+                  alt={getUserDisplayName()}
+                  width={24}
+                  height={24}
+                  className="w-6 h-6 rounded-full"
+                />
+              ) : (
+                <div className="w-6 h-6 bg-linear-to-b from-primary-500 to-primary-700 outline-2 outline-amber-50 text-white rounded-full flex items-center justify-center font-extrabold text-sm">
+                  {getUserInitials()}
+                </div>
+              )}
+              <div className="text-gray-900 dark:text-white text-sm font-bold flex flex-col items-start min-w-40">
+                {getUserDisplayName()}
+              </div>
+            </div>
           </div>
 
           <ul className="space-y-2 p-4">
@@ -64,11 +116,11 @@ export function Header() {
             </li>
             <li>
               <a
-                href="#"
+                href="/create-account"
                 className="flex items-center rounded-lg p-2 text-base font-medium text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
               >
                 <HiInformationCircle className="h-6 w-6" />
-                <span className="ml-3">About</span>
+                <span className="ml-3">Profile</span>
               </a>
             </li>
             <li>
@@ -90,13 +142,13 @@ export function Header() {
               </a>
             </li>
             <li>
-              <a
-                href="#"
-                className="flex items-center rounded-lg p-2 text-base font-medium text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+              <button
+                onClick={handleLogout}
+                className="flex w-full items-center rounded-lg p-2 text-base font-medium text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
               >
-                <HiPhone className="h-6 w-6" />
-                <span className="ml-3">Contact</span>
-              </a>
+                <LogOut className="h-6 w-6" />
+                <span className="ml-3">Logout</span>
+              </button>
             </li>
           </ul>
         </div>

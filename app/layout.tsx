@@ -4,6 +4,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeInit } from "../.flowbite-react/init";
 import "./globals.css";
 import { BackgroundPattern } from "../components/background-pattern";
+import AuthGuard from "../components/auth-guard";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -35,9 +36,11 @@ export default function RootLayout({
       >
         <ThemeInit />
         <BackgroundPattern />
-        <main className="relative z-10 h-screen flex-col items-center justify-center py-24">
-          {children}
-        </main>
+        <AuthGuard>
+          <main className="relative z-10 h-screen flex-col items-center justify-center py-24">
+            {children}
+          </main>
+        </AuthGuard>
       </body>
     </html>
   );
